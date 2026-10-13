@@ -1,0 +1,40 @@
+name: Meme CI workflow
+
+# This workflow will build and test your 
+#code every time you push to the main branch or open a pull 
+#request against the main branch.
+on: 
+  push:
+    branches: 
+      - main
+
+  pull_request:
+    branches: 
+      - main
+
+jobs:
+
+  lint:
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v3
+        - name: Use Node.js 22.x
+          uses: actions/setup-node@v3
+          with:
+            node-version: 22.x
+        - run: npm install
+        - run: npm run lint --if-present
+        
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.x
+      - run: npm install
+      - run: npm run build 
+   
